@@ -1,4 +1,5 @@
-from Veiculo import Veiculo
+# from veiculos import Veiculo
+from classes.veiculos import *
 from exception import ErrorException
 from datetime import datetime, date
 import uuid

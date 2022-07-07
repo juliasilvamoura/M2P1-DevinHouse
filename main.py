@@ -1,9 +1,10 @@
-from Carro import Carro
-from Moto import Moto
-from Caminhonete import Caminhonete
-from HistoricoTransferencia import HistoricoTransferencia
-from Veiculo import Veiculo
-from exception import ErrorException
+# from carros import Carro
+# from motos import Moto
+# from caminhonetes import Caminhonete
+# from historicoTransferencias import HistoricoTransferencia
+# from veiculos import Veiculo
+# from exception import ErrorException
+from classes import *
 import time
 
 car1 = Carro("05/07/2022","corsa","fzu1520",50000,"amarelo",4,"gasolina", 350)

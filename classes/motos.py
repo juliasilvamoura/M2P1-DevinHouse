@@ -1,4 +1,5 @@
-from Veiculo import Veiculo
+# from veiculos import Veiculo
+from classes.veiculos import *
 from exception import ErrorException
 from datetime import datetime, date
 import uuid
@@ -46,7 +47,7 @@ class Moto(Veiculo):
     # add o cpf no veiculo vendido e chamo a função realizar Histórico
     def venderVeiculos(self, cpf_comprador):
         self.cpf_comprador = cpf_comprador
-        Veiculo.realizarHistorico(self, cpf_comprador)
+        Veiculo.realizarHistorico(self)
 
     
      # RELATÓRIO MOTOS

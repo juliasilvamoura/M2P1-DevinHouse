@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
-from exception import ErrorException
-from HistoricoTransferencia import HistoricoTransferencia
+# from exception import ErrorException
+# from historicoTransferencias import HistoricoTransferencia
 import uuid
+
+from classes import *
+
 
 class Veiculo:
     lista_veiculos = []
@@ -97,8 +100,9 @@ class Veiculo:
             raise ErrorException("ERRO! Não existem carros no sistema")
 
 
-    def realizarHistorico(veiculo, cpf_comprador):
-        # HistoricoTransferencia.chegar(veiculo)
-        print(vars(veiculo))
+    def realizarHistorico(self):
+        HistoricoTransferencia.historico(self,self.valor, self.cpf_comprador)
+        HistoricoTransferencia.criarVeiculo(self.dataFabricacao, self.nome_modelo, self.placa, self.valor, self.cor )
+        print("DEU CERTO")
         # print(cpf_comprador)
     
