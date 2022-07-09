@@ -1,10 +1,8 @@
-# from carros import Carro
-# from motos import Moto
-# from caminhonetes import Caminhonete
-# from historicoTransferencias import HistoricoTransferencia
-# from veiculos import Veiculo
-# from exception import ErrorException
-from classes import *
+from carros import Carro
+from motos import Moto
+from caminhonetes import Caminhonete
+from veiculos import Veiculo, HistoricoTransferencia
+from exception import ErrorException
 import time
 
 car1 = Carro("05/07/2022","corsa","fzu1520",50000,"amarelo",4,"gasolina", 350)
@@ -13,24 +11,32 @@ moto1 = Moto("05/07/2022","corsa","fzu1500",5000,"amarelo",2,150)
 moto2 = Moto("05/07/2022","corsa","fzu1501",5000,"amarelo",2,150)
 caminhonete1 = Caminhonete("05/07/2022","corsa","fzu2000",50000,4, 150,"gasolina", 350)
 caminhonete2 = Caminhonete("05/07/2022","corsa","fzu2001",50000,4, 150,"gasolina", 350)
+
 # Foi criado para ele imprimir todos da classe veiculos, se passar a instancia carro, moto ou caminhonete ele 
-# não imprime todos os veiculos, só os da classe da instancia passada já que tem o mesmo nome as funções na classe pais
-# e na classe filha
+# não imprime todos os veiculos, só os da classe da instancia passada já que tem o mesmo nome as funções na classe 
+# pais e na classe filha
 vei = Veiculo(None,None,None,None,None)
+# Para a função imprimir o Histórico de vendas
+ht = HistoricoTransferencia()
 
-lista = [car1, car2, moto1, moto2, caminhonete1, caminhonete2]
+lista =[]
+# Para imprimir melhor
+for obj in Veiculo.lista_veiculos:
+    if obj.placa != None:
+        lista.append({"tipo": obj.tipo,"modelo": obj.nome_modelo, "placa": obj.placa, "valor": obj.valor,"cor": obj.cor})
 
-# if __name__== "__main__":
+# para pegar o objeto veiculo que quer
+lista1 = [car1,car2,moto1,moto2,caminhonete1,caminhonete2]
+
+
 
 def listarVeiculos():
-    print("\
-        VEICULOS\
-            ")
+    print("VEICULOS".center(50, "-"))
     veiculo = None
     for x in lista:
-        print(vars(x))
+        print(x)
     placa = input("Qual a placa do veiculo? ")
-    for x in lista:
+    for x in lista1:
         if x.placa == placa:
             veiculo = x
             return True, veiculo
@@ -83,7 +89,7 @@ while True:
             case "4":
                 print("""
                 Para qual tipo de veiculo deseja gerar relatório:
-                1 - Moto
+                1 - Moto/Triciclo
                 2 - Carro
                 3 - Caminhonete
                 4 - Todos
@@ -153,10 +159,11 @@ while True:
                             case "3":
                                 Caminhonete.lista_caminhonetes[0].vendidoMenorValor()
                             case "4":
-                                vei.vendidoMenorValor()
-
+                                vei.vendidoMenorValor() 
+                                
             case "5":
-                print("5")
+                ht.listarHistorico()             
+                
 
             case "0":
                 break        

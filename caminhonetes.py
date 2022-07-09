@@ -1,8 +1,7 @@
-# from veiculos import Veiculo
-from classes.veiculos import *
+from veiculos import Veiculo
 from exception import ErrorException
-from datetime import datetime, date
-import uuid
+from datetime import datetime
+import pprint
 
 class Caminhonete(Veiculo):
     lista_caminhonetes = []
@@ -12,6 +11,7 @@ class Caminhonete(Veiculo):
         self.tipo_combustivel = tipo_combustivel
         self.potencia = potencia
         self.capacidade_cacamba = capacidade_cacamba
+        self.tipo = "caminhonete"
         
 
         if(dataFabricacao and nome_modelo and placa and valor and cor and total_portas and potencia and tipo_combustivel and capacidade_cacamba):
@@ -30,7 +30,12 @@ class Caminhonete(Veiculo):
             raise ErrorException("Preencha todos os Campos corretamente")
 
 
-   # modelo a lista para ele não imprimir em formato de código e sim como obj
+    #IMPRIMIR
+    def imprimir(self, lista_original):
+        for x in lista_original:
+            pprint.pprint(x)
+
+    # modelo a lista para ele não imprimir em formato de código e sim como obj
     def modelar(self, lista_original):
         lista = []
         for x in lista_original:
@@ -40,7 +45,8 @@ class Caminhonete(Veiculo):
     #  LISTANDO INFORMAÇÕES DO CARRO
     # listo a informação de um veiculo especifico
     def listarInformacoes(self):
-        print(vars(self))
+        print(f"INFORMAÇÕES DO VEICULO: {self.nome_modelo}".center(100,"-"))
+        pprint.pprint(vars(self))
 
     #  ALTERANDO INFORMAÇÕES 
     # altero a informação de um veiculo especifico
@@ -56,15 +62,15 @@ class Caminhonete(Veiculo):
     # add o cpf no veiculo vendido e chamo a função realizar Histórico
     def venderVeiculos(self, cpf_comprador):
         self.cpf_comprador = cpf_comprador
-        Veiculo.realizarHistorico(self, cpf_comprador)
+        Veiculo.realizarHistorico(self)
 
     
      # RELATÓRIO CAMINHONETES
      # LISTAR CAMINHONETE
     def listar(self):
         if self.__class__.lista_caminhonetes!= []:
-            print("LISTA DE CAMINHONETE")
-            print(self.modelar(self.__class__.lista_caminhonetes))
+            print("LISTA DE CAMINHONETE".center(100,"-"))
+            self.imprimir(self.modelar(self.__class__.lista_caminhonetes))
         else:
             raise ErrorException("ERRO! Não existem caminhonetes no sistema")
 
@@ -72,10 +78,10 @@ class Caminhonete(Veiculo):
     # compara qual tem cpf != 0 e retorna uma lista de objetos
     def vendidos(self):
         vendidos = []
-        print("CAMINHONETE VENDIDOS")
+        print("CAMINHONETE VENDIDOS".center(100,"-"))
         vendidos = ([x for x in self.__class__.lista_caminhonetes if x.cpf_comprador != 0])
         if vendidos != []:
-            print(self.modelar(vendidos))
+            self.imprimir(self.modelar(vendidos))
         else:
             raise ErrorException("ERRO! Não existem caminhonetes vendidos")
 
@@ -83,10 +89,10 @@ class Caminhonete(Veiculo):
     # compara qual tem cpf = 0 e retorna uma lista de objetos
     def disponiveis(self):
         disponiveis = []
-        print("CAMINHONETEs DISPONIVEIS")
+        print("CAMINHONETEs DISPONIVEIS".center(100,"-"))
         disponiveis =([x for x in self.__class__.lista_caminhonetes if x.cpf_comprador == 0])
         if disponiveis != []:
-            print(self.modelar(disponiveis))
+            self.imprimir(self.modelar(disponiveis))
         else:
             raise ErrorException("ERRO! Não existem caminhonetes disponiveis")
 
@@ -96,8 +102,8 @@ class Caminhonete(Veiculo):
         lista_vendidos = []
         lista_vendidos = ([x for x in self.__class__.lista_caminhonetes if x.cpf_comprador != 0])
         if lista_vendidos != []:
-            print("CAMINHONETE VENDIDO COM MENOR VALOR")
-            print(vars(min(lista_vendidos, key= lambda x: x.valor)))
+            print("CAMINHONETE VENDIDO COM MENOR VALOR".center(100,"-"))
+            pprint.pprint(vars(min(lista_vendidos, key= lambda x: x.valor)))
         else:
             raise ErrorException("ERRO! Não existem caminhonetes no sistema")
     
@@ -108,7 +114,7 @@ class Caminhonete(Veiculo):
         lista_vendidos = ([x for x in self.__class__.lista_caminhonetes if x.cpf_comprador != 0])
 
         if lista_vendidos != []:
-            print("CAMINHONETE VENDIDO COM MAIOR VALOR")
-            print(vars(max(lista_vendidos, key= lambda x: x.valor)))
+            print("CAMINHONETE VENDIDO COM MAIOR VALOR".center(100,"-"))
+            pprint.pprint(vars(max(lista_vendidos, key= lambda x: x.valor)))
         else:
             raise ErrorException("ERRO! Não existem caminhonetes no sistema")

@@ -1,8 +1,7 @@
-# from veiculos import Veiculo
-from classes.veiculos import *
+from veiculos import Veiculo
 from exception import ErrorException
-from datetime import datetime, date
-import uuid
+from datetime import datetime
+import pprint
 
 class Moto(Veiculo):
     lista_motos = []
@@ -10,6 +9,7 @@ class Moto(Veiculo):
         super().__init__(dataFabricacao, nome_modelo, placa, valor, cor)
         self.total_rodas = total_rodas
         self.potencia = potencia
+        self.tipo = "motos/triciclo"
         
 
         if(dataFabricacao and nome_modelo and placa and valor and cor and total_rodas and potencia):
@@ -21,7 +21,12 @@ class Moto(Veiculo):
         else:
             raise ErrorException("Preencha todos os Campos corretamente")
     
-     # modelo a lista para ele não imprimir em formato de código e sim como obj
+    #IMPRIMIR
+    def imprimir(self, lista_original):
+        for x in lista_original:
+            pprint.pprint(x)
+
+    # modelo a lista para ele não imprimir em formato de código e sim como obj
     def modelar(self, lista_original):
         lista = []
         for x in lista_original:
@@ -31,7 +36,8 @@ class Moto(Veiculo):
     #  LISTANDO INFORMAÇÕES DO CARRO
     # listo a informação de um veiculo especifico
     def listarInformacoes(self):
-        print(vars(self))
+        print(f"INFORMAÇÕES DO VEICULO: {self.nome_modelo}".center(100,"-"))
+        pprint.pprint(vars(self))
 
     #  ALTERANDO INFORMAÇÕES 
     # altero a informação de um veiculo especifico
@@ -50,11 +56,11 @@ class Moto(Veiculo):
         Veiculo.realizarHistorico(self)
 
     
-     # RELATÓRIO MOTOS
+    # RELATÓRIO MOTOS
     def listar(self):
         if self.__class__.lista_motos!= []:
-            print("LISTA DE MOTOS")
-            print(self.modelar(self.__class__.lista_motos))
+            print("LISTA DE MOTOS".center(100,"-"))
+            self.imprimir(self.modelar(self.__class__.lista_motos))
         else:
             raise ErrorException("ERRO! Não existem motos no sistema")
 
@@ -62,10 +68,10 @@ class Moto(Veiculo):
     # compara qual tem cpf != 0 e retorna uma lista de objetos
     def vendidos(self):
         vendidos = []
-        print("MOTOS VENDIDOS")
+        print("MOTOS VENDIDOS".center(100,"-"))
         vendidos = ([x for x in self.__class__.lista_motos if x.cpf_comprador != 0])
         if vendidos != []:
-            print(self.modelar(vendidos))
+            self.imprimir(self.modelar(vendidos))
         else:
             raise ErrorException("ERRO! Não existem motos vendidos")
 
@@ -73,10 +79,10 @@ class Moto(Veiculo):
     # compara qual tem cpf = 0 e retorna uma lista de objetos
     def disponiveis(self):
         disponiveis = []
-        print("MOTOS DISPONIVEIS")
+        print("MOTOS DISPONIVEIS".center(100,"-"))
         disponiveis =([x for x in self.__class__.lista_motos if x.cpf_comprador == 0])
         if disponiveis != []:
-            print(self.modelar(disponiveis))
+            self.imprimir(self.modelar(disponiveis))
         else:
             raise ErrorException("ERRO! Não existem motos disponiveis")
 
@@ -86,8 +92,8 @@ class Moto(Veiculo):
         lista_vendidos = []
         lista_vendidos = ([x for x in self.__class__.lista_motos if x.cpf_comprador != 0])
         if lista_vendidos != []:
-            print("MOTO VENDIDO COM MENOR VALOR")
-            print(vars(min(lista_vendidos, key= lambda x: x.valor)))
+            print("MOTO VENDIDO COM MENOR VALOR".center(100,"-"))
+            pprint.pprint(vars(min(lista_vendidos, key= lambda x: x.valor)))
         else:
             raise ErrorException("ERRO! Não existem motos no sistema")
     
@@ -98,7 +104,7 @@ class Moto(Veiculo):
         lista_vendidos = ([x for x in self.__class__.lista_motos if x.cpf_comprador != 0])
 
         if lista_vendidos != []:
-            print("MOTO VENDIDO COM MAIOR VALOR")
-            print(vars(max(lista_vendidos, key= lambda x: x.valor)))
+            print("MOTO VENDIDO COM MAIOR VALOR".center(100,'-'))
+            pprint.pprint(vars(max(lista_vendidos, key= lambda x: x.valor)))
         else:
             raise ErrorException("ERRO! Não existem motos no sistema")

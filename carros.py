@@ -1,9 +1,7 @@
-from datetime import datetime, date
-# from veiculos import Veiculo
-from classes.veiculos import *
+from datetime import datetime
+from veiculos import Veiculo
 from exception import ErrorException
-# from HistoricoTransferencia import HistoricoTransferencia
-import uuid
+import pprint
 
 
 class Carro(Veiculo):
@@ -13,6 +11,7 @@ class Carro(Veiculo):
         self.total_portas = total_portas
         self.tipo_combustivel = tipo_combustivel.lower()
         self.potencia = potencia
+        self.tipo = "carro"
             
         if(dataFabricacao and nome_modelo and placa and valor and cor and total_portas and potencia and tipo_combustivel):
             if(tipo_combustivel.lower() == 'gasolina' or tipo_combustivel.lower() == 'flex'):
@@ -26,6 +25,12 @@ class Carro(Veiculo):
         else:
             raise ErrorException("Preencha todos os Campos corretamente")
 
+
+    #IMPRIMIR
+    def imprimir(self, lista_original):
+        for x in lista_original:
+            pprint.pprint(x)
+
     # modelo a lista para ele não imprimir em formato de código e sim como obj
     def modelar(self, lista_original):
         lista = []
@@ -36,7 +41,8 @@ class Carro(Veiculo):
     #  LISTANDO INFORMAÇÕES DO CARRO
     # listo a informação de um veiculo especifico
     def listarInformacoes(self):
-        print(vars(self))
+        print(f"INFORMAÇÕES DO VEICULO: {self.nome_modelo}".center(100,"-"))
+        pprint.pprint(vars(self))
 
     #  ALTERANDO INFORMAÇÕES 
     # altero a informação de um veiculo especifico
@@ -58,8 +64,8 @@ class Carro(Veiculo):
      # RELATÓRIO CARROS
     def listar(self):
         if self.__class__.lista_carros!= []:
-            print("LISTA DE CARROS")
-            print(self.modelar(self.__class__.lista_carros))
+            print("LISTA DE CARROS".center(100,"-"))
+            self.imprimir(self.modelar(self.__class__.lista_carros))
         else:
             raise ErrorException("ERRO! Não existem carros no sistema")
 
@@ -67,10 +73,10 @@ class Carro(Veiculo):
     # compara qual tem cpf != 0 e retorna uma lista de objetos
     def vendidos(self):
         vendidos = []
-        print("CARROS VENDIDOS")
+        print("CARROS VENDIDOS".center(100,"-"))
         vendidos = ([x for x in self.__class__.lista_carros if x.cpf_comprador != 0])
         if vendidos != []:
-            print(self.modelar(vendidos))
+            self.imprimir(self.modelar(vendidos))
         else:
             raise ErrorException("ERRO! Não existem carros vendidos")
 
@@ -78,10 +84,10 @@ class Carro(Veiculo):
     # compara qual tem cpf = 0 e retorna uma lista de objetos
     def disponiveis(self):
         disponiveis = []
-        print("CARROS DISPONIVEIS")
+        print("CARROS DISPONIVEIS".center(100,"-"))
         disponiveis =([x for x in self.__class__.lista_carros if x.cpf_comprador == 0])
         if disponiveis != []:
-            print(self.modelar(disponiveis))
+            self.imprimir(self.modelar(disponiveis))
         else:
             raise ErrorException("ERRO! Não existem carros disponiveis")
 
@@ -91,8 +97,8 @@ class Carro(Veiculo):
         lista_vendidos = []
         lista_vendidos = ([x for x in self.__class__.lista_carros if x.cpf_comprador != 0])
         if lista_vendidos != []:
-            print("CARRO VENDIDO COM MENOR VALOR")
-            print(vars(min(lista_vendidos, key= lambda x: x.valor)))
+            print("CARRO VENDIDO COM MENOR VALOR".center(100,"-"))
+            pprint.pprint(vars(min(lista_vendidos, key= lambda x: x.valor)))
         else:
             raise ErrorException("ERRO! Não existem carros no sistema")
     
@@ -103,17 +109,7 @@ class Carro(Veiculo):
         lista_vendidos = ([x for x in self.__class__.lista_carros if x.cpf_comprador != 0])
 
         if lista_vendidos != []:
-            print("CARRO VENDIDO COM MAIOR VALOR")
-            print(vars(max(lista_vendidos, key= lambda x: x.valor)))
+            print("CARRO VENDIDO COM MAIOR VALOR".center(100,"-"))
+            pprint.pprint(vars(max(lista_vendidos, key= lambda x: x.valor)))
         else:
             raise ErrorException("ERRO! Não existem carros no sistema")
-
-    
-
-car1 = Carro("05/07/2022","corsa","Fzu1520",50000,"amarelo",4,"Gasolina", 350)
-car2 = Carro("05/07/2022","corsa","fzu1520",70000,"amarelo",4,"gasolina", 350)
-# car2.venderVeiculos("457.180.448.21")
-car1.venderVeiculos("457.180.448.21")
-# Carro.lista_carros[0].disponiveis()
-# Veiculo.lista_veiculos[2].listar()
-
