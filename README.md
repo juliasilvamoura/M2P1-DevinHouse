@@ -7,7 +7,7 @@ O projeto Back-end desenvolvido durante o Módulo 2, consiste em um software uti
 # Requisitos:
 
 <ul>
-  <li><i>Utilizar o Python 3 (utilizar 3.10)</i> </li>
+  <li><i>Utilizar o Python 3 (utilizar 3.10.5)</i> </li>
   <li><i>O desenvolvimento das mensagens de saída, esperando pela ação do usuário</i> </li>
   <li><i>Captura da interação do usuário via entrada padrão</i> </li>
   <li><i>O sistema deverá ser apresentado diretamente na linha de comando</i> </li>
@@ -38,4 +38,5 @@ Meu nome é Julia, futura Engenheira de Computação, formada pelo Instituto Fed
 # Bibliotecas:
 <ul>
 <li><a href="https://docs.python.org/3/library/uuid.html" target="_blank">UUID</a></li>
+<li><a href="https://docs.python.org/3/library/pprint.html" target="_blank">PPRINT</a></li>
  </ul>
